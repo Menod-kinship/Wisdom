@@ -1,0 +1,14 @@
+select disease_category,test_name,copies, count(distinct kit_id)
+from wisdom_main_public.kits k
+        inner join wisdom_main_public.kit_types kt
+              on kt.id = k.kit_type_id
+        inner join wisdom_main_public.result_sets rs
+              on rs.id = k.active_result_set_id
+        inner join wisdom_main_public.health_results hr
+              on hr.result_set_id=rs.id
+        inner join wisdom_main_public.health_test_results htr
+              on htr.health_result_id=hr.id
+        inner join wisdom_main_public.health_tests ht
+              on ht.id=htr.health_test_id
+where kit_type_id in ('5b0c82df-1d45-4dd3-8a88-553aa6852fe5', 'f6d72059-2fab-4bbb-b6da-8fe2b0ce6393')
+group by 1,2,3); 
